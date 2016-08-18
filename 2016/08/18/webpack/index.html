@@ -86,12 +86,28 @@
 
 
 
-<meta property="og:type" content="website">
+<meta name="description" content="webpack编译流程漫谈前言
+weback在web构建工具的激烈竞争中逐渐脱引而出。 无论是编译速度、报错提示、可扩展性等都给前端开发者耳目一新的感觉。本篇文章是个人对webpack的一点小研究总结。
+
+webpack在开发者社区的反馈
+类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack">
+<meta property="og:type" content="article">
 <meta property="og:title" content="撒子都学">
-<meta property="og:url" content="http://www.sokis.org/index.html">
+<meta property="og:url" content="http://www.sokis.org/2016/08/18/webpack/index.html">
 <meta property="og:site_name" content="撒子都学">
+<meta property="og:description" content="webpack编译流程漫谈前言
+weback在web构建工具的激烈竞争中逐渐脱引而出。 无论是编译速度、报错提示、可扩展性等都给前端开发者耳目一新的感觉。本篇文章是个人对webpack的一点小研究总结。
+
+webpack在开发者社区的反馈
+类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack">
+<meta property="og:updated_time" content="2016-08-18T14:51:53.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="撒子都学">
+<meta name="twitter:description" content="webpack编译流程漫谈前言
+weback在web构建工具的激烈竞争中逐渐脱引而出。 无论是编译速度、报错提示、可扩展性等都给前端开发者耳目一新的感觉。本篇文章是个人对webpack的一点小研究总结。
+
+webpack在开发者社区的反馈
+类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack">
 
 
 
@@ -112,9 +128,9 @@
 
 
 
-  <link rel="canonical" href="http://www.sokis.org/"/>
+  <link rel="canonical" href="http://www.sokis.org/2016/08/18/webpack/"/>
 
-  <title> 撒子都学 </title>
+  <title>  | 撒子都学 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -135,9 +151,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +228,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -237,9 +251,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/18/webpack/" itemprop="url">
-                  未命名
-                </a>
               
             
           </h1>
@@ -279,9 +290,7 @@
       
 
       
-        
-          
-            <h1 id="webpack编译流程漫谈"><a href="#webpack编译流程漫谈" class="headerlink" title="webpack编译流程漫谈"></a>webpack编译流程漫谈</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+        <h1 id="webpack编译流程漫谈"><a href="#webpack编译流程漫谈" class="headerlink" title="webpack编译流程漫谈"></a>webpack编译流程漫谈</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>weback在web构建工具的激烈竞争中逐渐脱引而出。 无论是编译速度、报错提示、可扩展性等都给前端开发者耳目一新的感觉。本篇文章是个人对webpack的一点小研究总结。</p>
 </blockquote>
 <h2 id="webpack在开发者社区的反馈"><a href="#webpack在开发者社区的反馈" class="headerlink" title="webpack在开发者社区的反馈"></a>webpack在开发者社区的反馈</h2><blockquote>
@@ -311,16 +320,20 @@
 <h3 id="【大招】-webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件"><a href="#【大招】-webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件" class="headerlink" title="【大招】 webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件"></a>【大招】 webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件</h3><p>如上，webpack在plugin结束前，将会在内存中生成了棵巨大的文件模块tree。<br>这个阶段就是ready阶段，webpack写入output目录的分割点。<br>这棵树的枝叶节点就是所有的module[由import或者require为标志，并配备唯一moduleId],<br>这棵树的主枝干就是所有的assets，也就是我们entry中的东西。<br>这棵树也是webpackPlugin的处理的时候的arguments。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>好吧，对于开发者来说，整体而言webpack的编译过程细节比较多，但是大体的框架还是比较直观。<br>里面涉及到的类似DSL，AST的概念及模块缓存等等，在构建工具中还是比较常见的。<br>一切文件皆为模块也和react的一切都可以变为JS一样，对前端世界带来了新的开发理念。<br>anyway,写webpackPlugin相对于loader而言还是比较简单的。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -328,121 +341,32 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/08/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/08/08/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-08T21:44:10+08:00" content="2016-08-08">
-              2016-08-08
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -450,6 +374,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -469,8 +397,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -513,6 +450,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack编译流程漫谈"><span class="nav-number">1.</span> <span class="nav-text">webpack编译流程漫谈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack在开发者社区的反馈"><span class="nav-number">1.2.</span> <span class="nav-text">webpack在开发者社区的反馈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack整体架构-以webpack-config主要部分进行划分"><span class="nav-number">1.3.</span> <span class="nav-text">webpack整体架构(以webpack.config主要部分进行划分)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-确定webpack编译上下文context"><span class="nav-number">1.4.</span> <span class="nav-text">1. 确定webpack编译上下文context</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-entry和output-确定webpack的编译起点和终点"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.entry和output 确定webpack的编译起点和终点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-module-loaders-和-module-test-确定模块预编译处理方式"><span class="nav-number">1.4.2.</span> <span class="nav-text">3. module.loaders 和 module.test 确定模块预编译处理方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-plugin阶段发生在webpack的module-loader处理之后，一般用来做一些优化操作。"><span class="nav-number">1.4.3.</span> <span class="nav-text">4. plugin阶段发生在webpack的module.loader处理之后，一般用来做一些优化操作。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-resolve-alias的作用就是对module模块提供别名，并没有什么特殊的。"><span class="nav-number">1.4.4.</span> <span class="nav-text">5.resolve.alias的作用就是对module模块提供别名，并没有什么特殊的。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【副作用】-webpack编译过程中的电脑卡慢？"><span class="nav-number">1.5.</span> <span class="nav-text">【副作用】 webpack编译过程中的电脑卡慢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【大招】-webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件"><span class="nav-number">1.5.1.</span> <span class="nav-text">【大招】 webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -609,6 +557,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
