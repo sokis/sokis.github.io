@@ -73,6 +73,8 @@
 
 
 
+  
+
 
   <link rel="alternate" href="/atom.xml" title="撒子都学" type="application/atom+xml" />
 
@@ -86,28 +88,28 @@
 
 
 
-<meta name="description" content="webpack编译流程漫谈前言
+<meta name="description" content="前言
 weback在web构建工具的激烈竞争中逐渐脱引而出。 无论是编译速度、报错提示、可扩展性等都给前端开发者耳目一新的感觉。本篇文章是个人对webpack的一点小研究总结。
 
 webpack在开发者社区的反馈
-类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack">
+类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack看来，所以的文件都是模块，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="撒子都学">
+<meta property="og:title" content="webpack编译流程漫谈">
 <meta property="og:url" content="http://www.sokis.org/2016/08/18/webpack/index.html">
 <meta property="og:site_name" content="撒子都学">
-<meta property="og:description" content="webpack编译流程漫谈前言
+<meta property="og:description" content="前言
 weback在web构建工具的激烈竞争中逐渐脱引而出。 无论是编译速度、报错提示、可扩展性等都给前端开发者耳目一新的感觉。本篇文章是个人对webpack的一点小研究总结。
 
 webpack在开发者社区的反馈
-类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack">
-<meta property="og:updated_time" content="2016-08-18T14:51:53.576Z">
+类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack看来，所以的文件都是模块，">
+<meta property="og:updated_time" content="2016-08-18T14:54:00.655Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="撒子都学">
-<meta name="twitter:description" content="webpack编译流程漫谈前言
+<meta name="twitter:title" content="webpack编译流程漫谈">
+<meta name="twitter:description" content="前言
 weback在web构建工具的激烈竞争中逐渐脱引而出。 无论是编译速度、报错提示、可扩展性等都给前端开发者耳目一新的感觉。本篇文章是个人对webpack的一点小研究总结。
 
 webpack在开发者社区的反馈
-类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack">
+类似gulp把自己定位为stream building tools一样，webpack把自己定位为module building system。在webpack看来，所以的文件都是模块，">
 
 
 
@@ -130,7 +132,7 @@ webpack在开发者社区的反馈
 
   <link rel="canonical" href="http://www.sokis.org/2016/08/18/webpack/"/>
 
-  <title>  | 撒子都学 </title>
+  <title> webpack编译流程漫谈 | 撒子都学 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -250,7 +252,7 @@ webpack在开发者社区的反馈
             
             
               
-                
+                webpack编译流程漫谈
               
             
           </h1>
@@ -290,7 +292,7 @@ webpack在开发者社区的反馈
       
 
       
-        <h1 id="webpack编译流程漫谈"><a href="#webpack编译流程漫谈" class="headerlink" title="webpack编译流程漫谈"></a>webpack编译流程漫谈</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>weback在web构建工具的激烈竞争中逐渐脱引而出。 无论是编译速度、报错提示、可扩展性等都给前端开发者耳目一新的感觉。本篇文章是个人对webpack的一点小研究总结。</p>
 </blockquote>
 <h2 id="webpack在开发者社区的反馈"><a href="#webpack在开发者社区的反馈" class="headerlink" title="webpack在开发者社区的反馈"></a>webpack在开发者社区的反馈</h2><blockquote>
@@ -457,7 +459,7 @@ webpack在开发者社区的反馈
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack编译流程漫谈"><span class="nav-number">1.</span> <span class="nav-text">webpack编译流程漫谈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack在开发者社区的反馈"><span class="nav-number">1.2.</span> <span class="nav-text">webpack在开发者社区的反馈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack整体架构-以webpack-config主要部分进行划分"><span class="nav-number">1.3.</span> <span class="nav-text">webpack整体架构(以webpack.config主要部分进行划分)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-确定webpack编译上下文context"><span class="nav-number">1.4.</span> <span class="nav-text">1. 确定webpack编译上下文context</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-entry和output-确定webpack的编译起点和终点"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.entry和output 确定webpack的编译起点和终点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-module-loaders-和-module-test-确定模块预编译处理方式"><span class="nav-number">1.4.2.</span> <span class="nav-text">3. module.loaders 和 module.test 确定模块预编译处理方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-plugin阶段发生在webpack的module-loader处理之后，一般用来做一些优化操作。"><span class="nav-number">1.4.3.</span> <span class="nav-text">4. plugin阶段发生在webpack的module.loader处理之后，一般用来做一些优化操作。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-resolve-alias的作用就是对module模块提供别名，并没有什么特殊的。"><span class="nav-number">1.4.4.</span> <span class="nav-text">5.resolve.alias的作用就是对module模块提供别名，并没有什么特殊的。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【副作用】-webpack编译过程中的电脑卡慢？"><span class="nav-number">1.5.</span> <span class="nav-text">【副作用】 webpack编译过程中的电脑卡慢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【大招】-webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件"><span class="nav-number">1.5.1.</span> <span class="nav-text">【大招】 webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack在开发者社区的反馈"><span class="nav-number">2.</span> <span class="nav-text">webpack在开发者社区的反馈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack整体架构-以webpack-config主要部分进行划分"><span class="nav-number">3.</span> <span class="nav-text">webpack整体架构(以webpack.config主要部分进行划分)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-确定webpack编译上下文context"><span class="nav-number">4.</span> <span class="nav-text">1. 确定webpack编译上下文context</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-entry和output-确定webpack的编译起点和终点"><span class="nav-number">4.1.</span> <span class="nav-text">2.entry和output 确定webpack的编译起点和终点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-module-loaders-和-module-test-确定模块预编译处理方式"><span class="nav-number">4.2.</span> <span class="nav-text">3. module.loaders 和 module.test 确定模块预编译处理方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-plugin阶段发生在webpack的module-loader处理之后，一般用来做一些优化操作。"><span class="nav-number">4.3.</span> <span class="nav-text">4. plugin阶段发生在webpack的module.loader处理之后，一般用来做一些优化操作。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-resolve-alias的作用就是对module模块提供别名，并没有什么特殊的。"><span class="nav-number">4.4.</span> <span class="nav-text">5.resolve.alias的作用就是对module模块提供别名，并没有什么特殊的。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【副作用】-webpack编译过程中的电脑卡慢？"><span class="nav-number">5.</span> <span class="nav-text">【副作用】 webpack编译过程中的电脑卡慢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【大招】-webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件"><span class="nav-number">5.1.</span> <span class="nav-text">【大招】 webpack将编译结果导出到output是怎么做到的，为啥output不是渐进的写入文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
         </section>
